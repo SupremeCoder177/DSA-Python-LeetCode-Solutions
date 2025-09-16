@@ -1,32 +1,27 @@
 # making a valid parenthesis program
 # takes in an input of an int, and returns a string of n pairs of all possible valid parenthesis
 
+from random import randint
+from typing import List
 
-class Soluton:
+class Solution:
 
-	def check_parenthesis(self, string):
-		temp = 0
-		for ch in string:
-			if ch == "(": 
-				temp += 1
-			else:
-				temp -= 1
-				if temp < 0: return False
-		return temp == 0
+	def generateParenthesis(self, n : int) -> List[str]:
+		result = []
 
-	def genSingleParen(self) -> str:
-		pass
+		def backtrack(curr : str, open_count : int, close_count : int):
+			if open_count == 0 and close_count == 0:
+				result.append(curr)
+				return
 
-	def generateParenthesis(self, n : int) -> list[str]:
-		if n == 0: return []
-		if n == 1: return ["()"]
+			if open_count > 0:
+				backtrack(curr + "(", open_count - 1, close_count)
 
-		possibles = []
+			if close_count > open_count:
+				backtrack(curr + ")", open_count, close_count - 1)
 
-		for i in range(2 ** n):
-			temp = self.genSingleParen()
-			if check_parenthesis(temp): possibles.append(temp)
-		return possibles
+		backtrack("", n, n)
+		return result
 
-
+print(Solution().generateParenthesis(3))
 
