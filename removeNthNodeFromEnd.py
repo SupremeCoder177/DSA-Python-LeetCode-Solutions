@@ -20,6 +20,8 @@ class Solution:
 		while curr_node:
 			curr_node = curr_node.next
 			length += 1
+
+		if n == length: return head.next
 		
 		count = 0
 		curr_node = head
